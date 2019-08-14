@@ -2,7 +2,7 @@ import scipy.io
 from sklearn import svm
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import KFold
-from Decision_Tree_Forward import decision_tree_forward
+from Decision_Tree_Backward import decision_tree_backward
 
 
 mat = scipy.io.loadmat('/home/zealshen/DATA/DATAfromASU/FaceImageData/COIL20.mat')
@@ -12,5 +12,5 @@ y = mat['Y']
 y = y[:, 0]
 n_samples, n_features = X.shape
 
-idx = decision_tree_forward.decision_tree_forward(X, y, 100)
+idx = decision_tree_backward.decision_tree_backward(X, y, 100)
 print(idx)
