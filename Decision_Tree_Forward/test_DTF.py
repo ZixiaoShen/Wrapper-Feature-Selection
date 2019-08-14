@@ -5,7 +5,6 @@ from sklearn.model_selection import KFold
 from Decision_Tree_Forward import decision_tree_forward
 
 
-
 mat = scipy.io.loadmat('/home/zealshen/DATA/DATAfromASU/FaceImageData/COIL20.mat')
 X = mat['X']
 X = X.astype(float)

@@ -3,6 +3,7 @@ from sklearn.model_selection import KFold
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import accuracy_score
 
+
 def decision_tree_forward(X, y, n_selected_features):
     """
     This function implements the forward feature selection algorithm based on decision tree
@@ -10,12 +11,13 @@ def decision_tree_forward(X, y, n_selected_features):
 
     n_samples, n_features = X.shape
     # using 10 fold cross validation
-    cv = KFold(n_samples, n_splits=10, shuffle=True)
+    kf = KFold(n_splits=10)
     # choose decision tree as the classifier
     clf = DecisionTreeClassifier()
 
     # selected feature set, initialized to be empty
     F = []
+    idx = 0
     count = 0
     while count < n_selected_features:
         max_acc = 0
@@ -24,10 +26,10 @@ def decision_tree_forward(X, y, n_selected_features):
                 F.append(i)
                 X_tmp = X[:, F]
                 acc = 0
-                for train, test in cv:
-                    clf.fit(X_tmp[train], y[train])
-                    y_predict = clf.predict(X_tmp[test])
-                    acc_tmp = accuracy_score(y[test], y_predict)
+                for train_Id, test_Id in kf.split(X_tmp):
+                    clf.fit(X_tmp[train_Id], y[train_Id])
+                    y_predict = clf.predict(X_tmp[test_Id])
+                    acc_tmp = accuracy_score(y[test_Id], y_predict)
                     acc += acc_tmp
                 acc = float(acc)/10
                 F.pop()
@@ -39,6 +41,3 @@ def decision_tree_forward(X, y, n_selected_features):
         F.append(idx)
         count += 1
     return np.array(F)
-
-
-
