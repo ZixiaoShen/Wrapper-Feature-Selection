@@ -1,0 +1,18 @@
+import scipy.io
+from sklearn import svm
+from sklearn.metrics import accuracy_score
+from sklearn.model_selection import KFold
+from Decision_Tree_Forward import decision_tree_forward
+
+
+
+mat = scipy.io.loadmat('/home/zealshen/DATA/DATAfromASU/FaceImageData/COIL20.mat')
+X = mat['X']
+X = X.astype(float)
+y = mat['Y']
+y = y[:, 0]
+n_samples, n_features = X.shape
+
+idx = decision_tree_forward.decision_tree_forward(X, y, 100)
+print(idx)
+
